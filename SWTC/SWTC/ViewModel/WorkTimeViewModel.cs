@@ -89,6 +89,21 @@ namespace SWTC.ViewModel
             }
         }
 
+        public string Info
+        {
+            get
+            {
+                return NewWorkDay.Info;
+            }
+            set
+            {
+                if (value != NewWorkDay.Info)
+                {
+                    NewWorkDay.Info = value;
+                }
+            }
+        }
+
         public string TotalHours
         {
             get

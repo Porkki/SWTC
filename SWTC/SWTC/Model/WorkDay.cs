@@ -79,6 +79,23 @@ namespace SWTC.Model
             }
         }
 
+        private string _Info;
+        public string Info
+        {
+            get
+            {
+                return _Info;
+            }
+            set
+            {
+                if (value != _Info)
+                {
+                    _Info = value;
+                    OnPropertyChanged("Info");
+                }
+            }
+        }
+
         public TimeSpan TotalHours()
         {
             if (StartTime != TimeSpan.Zero || EndTime != TimeSpan.Zero)
