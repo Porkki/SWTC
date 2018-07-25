@@ -12,6 +12,8 @@ namespace SWTC
 		public MainPage()
 		{
 			InitializeComponent();
-		}
+
+            BindingContext = new ViewModel.MainPageViewModel(Navigation);
+        }
 	}
 }

@@ -2,13 +2,39 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:SWTC"
-             x:Class="SWTC.MainPage">
+             x:Class="SWTC.MainPage"
+             Title="SWTC">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-    	<Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+
+        <Button Margin="0" Grid.Row="1" Grid.Column="1" Text="Uusi työpäivä" Command="{Binding NewWorkDay}"/>
+        <Button Margin="0" Grid.Row="2" Grid.Column="1" Text="Katso/Muokkaa"/>
+        <Button Margin="0" Grid.Row="3" Grid.Column="1" Text="Asetukset"/>
+
+        <StackLayout Grid.Row="4" Grid.Column="1">
+            <Label Text="Yhteenveto ajalta 1.1.1970-tänään" FontSize="Large" FontAttributes="Bold"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Kuluvan viikon tunnit: "/>
+                <Label Text="{Binding CurWeekHours}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Kuluvan palkkajakson tunnit: "/>
+                <Label Text="{Binding CurWageHours}"/>
+            </StackLayout>
+        </StackLayout>
+    </Grid>
 
 </ContentPage>
