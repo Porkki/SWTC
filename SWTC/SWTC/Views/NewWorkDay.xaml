@@ -27,7 +27,7 @@
 
             <Label Text="{Binding TotalHours, StringFormat='Työaika yhteensä: {0}'}"/>
             <Entry Placeholder="Huom" Text="{Binding Info}"/>
-            <Button Text="Lisää!" Command="{Binding AddWorkDay}"/>
+            <Button Text="Lisää!" Command="{Binding AddWorkDayCommand}"/>
 
         </StackLayout>
     </ContentPage.Content>

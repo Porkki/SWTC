@@ -10,6 +10,7 @@ namespace SWTC.ViewModel
     class MainPageViewModel : BaseVM
     {
         public ICommand NewWorkDay { get; private set; }
+        public ICommand ModifyWorkDay { get; private set; }
 
         public INavigation Navigation { get; set; }
         /// <summary>

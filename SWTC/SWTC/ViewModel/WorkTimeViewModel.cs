@@ -3,6 +3,7 @@ using SWTC.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace SWTC.ViewModel
@@ -10,16 +11,31 @@ namespace SWTC.ViewModel
     class WorkTimeViewModel : BaseVM
     {
         public INavigation Navigation { get; set; }
+        public IWorkDayRepository workDayRepository;
 
         public WorkDay NewWorkDay;
 
-        public ButtonCommand AddWorkDay { get; private set; }
+        public Command AddWorkDayCommand { get; private set; }
 
         public WorkTimeViewModel(INavigation navigation)
         {
             this.Navigation = navigation;
+            this.workDayRepository = new WorkDayRepository();
 
             NewWorkDay = new WorkDay();
+            AddWorkDayCommand = new Command(async () => await AddWorkDay());
+        }
+
+        async Task AddWorkDay()
+        {
+            if (StartTime == TimeSpan.Zero || EndTime == TimeSpan.Zero)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "There is wrong value!", "Ok");
+            } else
+            {
+                workDayRepository.InsertWorkDay(NewWorkDay);
+                await Navigation.PushAsync(new MainPage());
+            }
         }
 
         public DateTime SelectedDate

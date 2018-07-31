@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SQLite;
 
 namespace SWTC.Model
 {
-    class WorkDay : ViewModel.BaseVM
+    [Table("WorkDay")]
+    public class WorkDay
     {
+        [PrimaryKey, AutoIncrement]
+        public int ID { get; set; }
+
         private DateTime _SelectedDate = DateTime.Today;
 
         public DateTime SelectedDate
@@ -19,7 +24,6 @@ namespace SWTC.Model
                 if (value != _SelectedDate)
                 {
                     _SelectedDate = value;
-                    OnPropertyChanged("SelectedDate");
                 }
             }
         }
@@ -37,7 +41,6 @@ namespace SWTC.Model
                 if (value != _StartTime)
                 {
                     _StartTime = value;
-                    OnPropertyChanged("StartTime");
                 }
             }
         }
@@ -56,7 +59,6 @@ namespace SWTC.Model
                 if (value != _EndTime)
                 {
                     _EndTime = value;
-                    OnPropertyChanged("EndTime");
                 }
             }
         }
@@ -74,7 +76,6 @@ namespace SWTC.Model
                 if (value != _Break)
                 {
                     _Break = value;
-                    OnPropertyChanged("Break");
                 }
             }
         }
@@ -91,7 +92,6 @@ namespace SWTC.Model
                 if (value != _Info)
                 {
                     _Info = value;
-                    OnPropertyChanged("Info");
                 }
             }
         }
