@@ -10,7 +10,7 @@ namespace SWTC.ViewModel
     class MainPageViewModel : BaseVM
     {
         public ICommand NewWorkDay { get; private set; }
-        public ICommand ModifyWorkDay { get; private set; }
+        public ICommand ViewWorkDays { get; private set; }
 
         public INavigation Navigation { get; set; }
         /// <summary>
@@ -23,6 +23,11 @@ namespace SWTC.ViewModel
             {
                 await Application.Current.MainPage.Navigation.PushAsync(new Views.NewWorkDay());
             });
+            ViewWorkDays = new Command(async () =>
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new Views.ModifyWorkDay());
+            });
+
         }
         private string _CurWeekHours;
         public string CurWeekHours
