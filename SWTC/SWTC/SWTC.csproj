@@ -10,6 +10,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\ViewWorkDays.xaml.cs">
+      <DependentUpon>ViewWorkDays.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\ViewWorkDays.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\NewWorkDay.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
