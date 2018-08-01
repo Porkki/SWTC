@@ -21,7 +21,7 @@
         </Grid.ColumnDefinitions>
 
         <Button Margin="0" Grid.Row="1" Grid.Column="1" Text="Uusi työpäivä" Command="{Binding NewWorkDay}"/>
-        <Button Margin="0" Grid.Row="2" Grid.Column="1" Text="Katso/Muokkaa" Command="{Binding ModifyWorkDay}"/>
+        <Button Margin="0" Grid.Row="2" Grid.Column="1" Text="Katso/Muokkaa" Command="{Binding ViewWorkDays}"/>
         <Button Margin="0" Grid.Row="3" Grid.Column="1" Text="Asetukset"/>
 
         <StackLayout Grid.Row="4" Grid.Column="1">
