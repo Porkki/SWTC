@@ -4,6 +4,7 @@ using System.Text;
 using Xamarin.Forms;
 using SWTC.Services;
 using SWTC.Model;
+using System.Threading.Tasks;
 
 namespace SWTC.ViewModel
 {
@@ -12,7 +13,7 @@ namespace SWTC.ViewModel
         public INavigation Navigation { get; set; }
         public IWorkDayRepository WorkDayRepository;
 
-        public ButtonCommand RemoveWorkDay { get; private set; }
+        public Command RemoveWorkDay { get; private set; }
 
         public ViewWorkDaysViewModel(INavigation navigation)
         {
@@ -20,7 +21,7 @@ namespace SWTC.ViewModel
             this.WorkDayRepository = new WorkDayRepository();
             WorkDaysList = this.WorkDayRepository.GetAllWorkDays();
 
-            RemoveWorkDay = new ButtonCommand(RemoveWorkDayExec, TrueCommand);
+            RemoveWorkDay = new Command(async () => await RemoveWorkDayExec());
         }
 
         private List<WorkDay> _WorkDaysList;
@@ -57,11 +58,18 @@ namespace SWTC.ViewModel
             }
         }
 
-        public void RemoveWorkDayExec()
+        public async Task RemoveWorkDayExec()
         {
-            this.WorkDayRepository.DeleteWorkDay(SelectedItem.ID);
-            //After removing selected WorkDay we need to set the WorkDaysList again to see the changes in the database
-            WorkDaysList = WorkDayRepository.GetAllWorkDays();
+            if (SelectedItem != null)
+            {
+                this.WorkDayRepository.DeleteWorkDay(SelectedItem.ID);
+                //After removing selected WorkDay we need to set the WorkDaysList again to see the changes in the database
+                WorkDaysList = WorkDayRepository.GetAllWorkDays();
+            } else
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "There is no workday selected!", "Ok");
+            }
+            
         }
 
         public bool TrueCommand()
