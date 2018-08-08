@@ -12,16 +12,15 @@ namespace SWTC.ViewModel
         public INavigation Navigation { get; set; }
         public IWorkDayRepository WorkDayRepository;
 
-        
-
-        public WorkDay CurrentWorkDay;
+        public ButtonCommand RemoveWorkDay { get; private set; }
 
         public ViewWorkDaysViewModel(INavigation navigation)
         {
             this.Navigation = navigation;
             this.WorkDayRepository = new WorkDayRepository();
-            this.CurrentWorkDay = new WorkDay();
             WorkDaysList = this.WorkDayRepository.GetAllWorkDays();
+
+            RemoveWorkDay = new ButtonCommand(RemoveWorkDayExec, TrueCommand);
         }
 
         private List<WorkDay> _WorkDaysList;
@@ -39,6 +38,35 @@ namespace SWTC.ViewModel
                     OnPropertyChanged("WorkDaysList");
                 }
             }
+        }
+
+        private WorkDay _SelectedItem;
+        public WorkDay SelectedItem
+        {
+            get
+            {
+                return _SelectedItem;
+            }
+            set
+            {
+                if (value != _SelectedItem)
+                {
+                    _SelectedItem = value;
+                    OnPropertyChanged("SelectedItem");
+                }
+            }
+        }
+
+        public void RemoveWorkDayExec()
+        {
+            this.WorkDayRepository.DeleteWorkDay(SelectedItem.ID);
+            //After removing selected WorkDay we need to set the WorkDaysList again to see the changes in the database
+            WorkDaysList = WorkDayRepository.GetAllWorkDays();
+        }
+
+        public bool TrueCommand()
+        {
+            return true;
         }
     }
 }
