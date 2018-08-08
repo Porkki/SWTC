@@ -14,12 +14,15 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Näytä ajalta: "/>
+                <!-- TODO Picker for date selection -->
+            </StackLayout>
             <ScrollView>
             <ListView ItemsSource="{Binding WorkDaysList}" SelectedItem="{Binding SelectedItem}" HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-
                             <Grid Padding="10" Margin="5" BackgroundColor="LightBlue">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
@@ -38,7 +41,6 @@
                                 </StackLayout>
                                 <Label Grid.Column="2" Grid.Row="1" Text="{Binding Break, StringFormat='Tauko: {0:mm}min'}" Style="{StaticResource LabelStyle}"/>
                             </Grid>
-
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
