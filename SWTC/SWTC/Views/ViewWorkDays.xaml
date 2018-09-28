@@ -16,6 +16,11 @@
         <StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Näytä ajalta: "/>
+                <DatePicker x:Name="SelectedDate2"
+                        Date="{Binding StartDate}"/>
+                <Label Text=" - "/>
+                <DatePicker x:Name="SelectedDate1"
+                        Date="{Binding EndDate}"/>
                 <!-- TODO Picker for date selection -->
             </StackLayout>
             <ScrollView>
@@ -33,11 +38,11 @@
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
-                                <Label Grid.Column="0" Grid.Row="0" Text="{Binding SelectedDate, StringFormat='{0:dd}'}" HorizontalOptions="Center" Style="{StaticResource LabelStyle}"/>
-                                <Label Grid.Column="0" Grid.Row="1" Text="{Binding SelectedDate, StringFormat='{0:MMMM}'}" Style="{StaticResource LabelStyle}"/>
+                                <Label Grid.Column="0" Grid.Row="0" Text="{Binding SelectedDate, StringFormat='{}{0:dd}'}" HorizontalOptions="Center" Style="{StaticResource LabelStyle}"/>
+                                <Label Grid.Column="0" Grid.Row="1" Text="{Binding SelectedDate, StringFormat='{}{0:MMMM}'}" Style="{StaticResource LabelStyle}"/>
                                 <StackLayout Grid.Column="2" Grid.Row="0" Orientation="Horizontal">
-                                    <Label Text="{Binding StartTime, StringFormat='{0:c}'}" Style="{StaticResource LabelStyle}"/>
-                                    <Label Text="{Binding EndTime, StringFormat='{0:c}'}" Style="{StaticResource LabelStyle}"/>
+                                    <Label Text="{Binding StartTime, StringFormat='A: {0:c}'}" Style="{StaticResource LabelStyle}"/>
+                                    <Label Text="{Binding EndTime, StringFormat='L: {0:c}'}" Style="{StaticResource LabelStyle}"/>
                                 </StackLayout>
                                 <Label Grid.Column="2" Grid.Row="1" Text="{Binding Break, StringFormat='Tauko: {0:mm}min'}" Style="{StaticResource LabelStyle}"/>
                             </Grid>
