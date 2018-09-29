@@ -55,6 +55,7 @@
             </ListView>
             </ScrollView>
             <Button Text="Poista" Command="{Binding RemoveWorkDay}"/>
+            <Label Text="{Binding TotalHours, StringFormat='Yhteistunnit valitulta aikaväliltä: {0:c}'}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -59,6 +59,20 @@ namespace SWTC.ViewModel
             }
         }
 
+        public string TotalHours
+        {
+            get
+            {
+                TimeSpan total = TimeSpan.Zero;
+                foreach (var WorkDay in WorkDaysList)
+                {
+                    total += WorkDay.Total;
+                }
+                double var1 = total.TotalHours;
+                return Math.Round(var1, 2).ToString();
+            }
+        }
+
         private List<WorkDay> _WorkDaysList;
         public List<WorkDay> WorkDaysList
         {
@@ -103,6 +117,7 @@ namespace SWTC.ViewModel
             } else
             {
                 await Application.Current.MainPage.DisplayAlert("Info", "Haku valmis!", "Ok");
+                OnPropertyChanged("TotalHours");
             }
         }
 
