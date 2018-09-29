@@ -24,6 +24,39 @@ namespace SWTC.ViewModel
             RemoveWorkDay = new Command(async () => await RemoveWorkDayExec());
         }
 
+        private DateTime _StartDate = DateTime.Today;
+        public DateTime StartDate
+        {
+            get
+            {
+                return _StartDate;
+            }
+            set
+            {
+                if (value != _StartDate)
+                {
+                    _StartDate = value;
+                    OnPropertyChanged("StartDate");
+                }
+            }
+        }
+        private DateTime _EndDate = DateTime.Today;
+        public DateTime EndDate
+        {
+            get
+            {
+                return _EndDate;
+            }
+            set
+            {
+                if (value != _EndDate)
+                {
+                    _EndDate = value;
+                    OnPropertyChanged("EndDate");
+                }
+            }
+        }
+
         private List<WorkDay> _WorkDaysList;
         public List<WorkDay> WorkDaysList
         {
