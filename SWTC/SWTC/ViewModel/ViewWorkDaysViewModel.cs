@@ -14,6 +14,7 @@ namespace SWTC.ViewModel
         public IWorkDayRepository WorkDayRepository;
 
         public Command RemoveWorkDay { get; private set; }
+        public Command Search { get; private set; }
 
         public ViewWorkDaysViewModel(INavigation navigation)
         {
@@ -22,9 +23,10 @@ namespace SWTC.ViewModel
             WorkDaysList = this.WorkDayRepository.GetAllWorkDays();
 
             RemoveWorkDay = new Command(async () => await RemoveWorkDayExec());
+            Search = new Command(async () => await SearchExec());
         }
 
-        private DateTime _StartDate = DateTime.Today;
+        private DateTime _StartDate = DateTime.Parse("01.01.2018");
         public DateTime StartDate
         {
             get
@@ -88,6 +90,19 @@ namespace SWTC.ViewModel
                     _SelectedItem = value;
                     OnPropertyChanged("SelectedItem");
                 }
+            }
+        }
+
+        public async Task SearchExec()
+        {
+            WorkDaysList = WorkDayRepository.GetBetweenDates(StartDate, EndDate);
+
+            if (WorkDaysList.Count == 0)
+            {
+                await Application.Current.MainPage.DisplayAlert("Info", "Annetuilla päivämäärillä ei löytynyt yhtään työpäivää!", "Ok");
+            } else
+            {
+                await Application.Current.MainPage.DisplayAlert("Info", "Haku valmis!", "Ok");
             }
         }
 

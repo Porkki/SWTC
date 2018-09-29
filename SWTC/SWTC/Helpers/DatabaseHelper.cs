@@ -27,7 +27,17 @@ namespace SWTC.Helpers
 
         public List<WorkDay> GetBetweenDates(DateTime start, DateTime end)
         {
-            return null;
+            string sqlstart = DateTimeSQLite(start);
+            string sqlend = DateTimeSQLite(end);
+
+            string query = string.Format("SELECT * FROM WorkDay WHERE SelectedDate BETWEEN '{0}' AND '{1}'", sqlstart, sqlend);
+
+            return sqliteconnection.Query<WorkDay>(query);
+        }
+
+        private string DateTimeSQLite(DateTime datetime)
+        {
+            return datetime.ToString("yyyy-MM-dd");
         }
 
         public WorkDay GetWorkDay(int id)

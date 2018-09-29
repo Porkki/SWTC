@@ -21,7 +21,7 @@
                 <Label Text=" - "/>
                 <DatePicker x:Name="SelectedDate1"
                         Date="{Binding EndDate}"/>
-                <!-- TODO Picker for date selection -->
+                <Button Text="Hae" Command="{Binding Search}"/>
             </StackLayout>
             <ScrollView>
             <ListView ItemsSource="{Binding WorkDaysList}" SelectedItem="{Binding SelectedItem}" HasUnevenRows="True">
