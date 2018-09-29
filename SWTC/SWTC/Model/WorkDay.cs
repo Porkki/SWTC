@@ -96,6 +96,22 @@ namespace SWTC.Model
             }
         }
 
+        private TimeSpan _Total;
+        public TimeSpan Total
+        {
+            get
+            {
+                return _Total;
+            }
+            set
+            {
+                if (value != _Total)
+                {
+                    _Total = value;
+                }
+            }
+        }
+
         public TimeSpan TotalHours()
         {
             if (StartTime != TimeSpan.Zero || EndTime != TimeSpan.Zero)

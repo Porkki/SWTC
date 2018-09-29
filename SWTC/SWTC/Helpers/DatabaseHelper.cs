@@ -25,6 +25,11 @@ namespace SWTC.Helpers
                     select data).ToList();
         }
 
+        public List<WorkDay> GetBetweenDates(DateTime start, DateTime end)
+        {
+            return null;
+        }
+
         public WorkDay GetWorkDay(int id)
         {
             return sqliteconnection.Table<WorkDay>().FirstOrDefault(t => t.ID == id);
