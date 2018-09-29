@@ -25,7 +25,7 @@ namespace SWTC.Droid.Implementations
 
             // Documents folder  
             var path = Path.Combine(documentsPath, DatabaseHelper.DbFileName);
-            var conn = new SQLiteConnection(path);
+            var conn = new SQLiteConnection(path, false);
 
             // Return the database connection  
             return conn;
