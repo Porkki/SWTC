@@ -82,7 +82,7 @@ namespace SWTC.ViewModel
                 if (value != NewWorkDay.EndTime)
                 {
                     NewWorkDay.EndTime = value;
-                    OnPropertyChanged("StartTime");
+                    OnPropertyChanged("EndTime");
                     OnPropertyChanged("TotalHours");
                 }
             }
@@ -120,10 +120,27 @@ namespace SWTC.ViewModel
             }
         }
 
+        public TimeSpan Total
+        {
+            get
+            {
+                return NewWorkDay.Total;
+            }
+            set
+            {
+                if (value != NewWorkDay.Total)
+                {
+                    NewWorkDay.Total = value;
+                    OnPropertyChanged("Total");
+                }
+            }
+        }
+
         public string TotalHours
         {
             get
             {
+                Total = NewWorkDay.TotalHours();
                 return NewWorkDay.TotalHours().ToString();
             }
         }
