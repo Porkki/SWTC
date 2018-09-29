@@ -25,6 +25,11 @@ namespace SWTC.Services
             return _databasehelper.GetAllWorkDays();
         }
 
+        public List<WorkDay> GetBetweenDates(DateTime start, DateTime end)
+        {
+            return null;
+        }
+
         public WorkDay GetWorkDay(int id)
         {
             return _databasehelper.GetWorkDay(id);

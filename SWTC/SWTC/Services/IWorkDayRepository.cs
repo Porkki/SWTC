@@ -9,6 +9,8 @@ namespace SWTC.Services
     {
         List<WorkDay> GetAllWorkDays();
 
+        List<WorkDay> GetBetweenDates(DateTime start, DateTime end);
+
         WorkDay GetWorkDay(int id);
 
         void DeleteWorkDay(int id);
