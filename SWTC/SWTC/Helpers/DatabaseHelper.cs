@@ -30,7 +30,7 @@ namespace SWTC.Helpers
             string sqlstart = DateTimeSQLite(start);
             string sqlend = DateTimeSQLite(end);
 
-            string query = string.Format("SELECT * FROM WorkDay WHERE SelectedDate BETWEEN '{0}' AND '{1}' ORDER BY SelectedDate", sqlstart, sqlend);
+            string query = string.Format("SELECT * FROM WorkDay WHERE SelectedDate BETWEEN '{0}' AND '{1}T23:59:59.000' ORDER BY SelectedDate", sqlstart, sqlend);
 
             return sqliteconnection.Query<WorkDay>(query);
         }

@@ -121,7 +121,7 @@ namespace SWTC.ViewModel
                 }
             }
         }
-        //TODO: Mahdollinen bugi, haku näyttää yhden päivän liianvähän emuloinnissa, kolmas päivä näyttää vain toisen päivän
+
         public async Task SearchExec()
         {
             if (StartDate > EndDate)
