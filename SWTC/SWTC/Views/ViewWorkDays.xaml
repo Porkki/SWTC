@@ -15,13 +15,13 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Näytä ajalta: "/>
+                <Label Text="Näytä ajalta: " VerticalOptions="Center"/>
                 <DatePicker x:Name="SelectedDate2"
-                        Date="{Binding StartDate}"/>
-                <Label Text=" - "/>
+                        Date="{Binding StartDate}" HorizontalOptions="FillAndExpand"/>
+                <Label Text=" - " VerticalOptions="Center"/>
                 <DatePicker x:Name="SelectedDate1"
-                        Date="{Binding EndDate}"/>
-                <Button Text="Hae" Command="{Binding Search}"/>
+                        Date="{Binding EndDate}" HorizontalOptions="FillAndExpand"/>
+                <Button Text="Hae" Command="{Binding Search}" HorizontalOptions="End"/>
             </StackLayout>
             <ScrollView>
             <ListView ItemsSource="{Binding WorkDaysList}" SelectedItem="{Binding SelectedItem}" HasUnevenRows="True">
@@ -56,6 +56,7 @@
             </ScrollView>
             <Button Text="Poista" Command="{Binding RemoveWorkDay}"/>
             <Label Text="{Binding TotalHours, StringFormat='Yhteistunnit valitulta aikaväliltä: {0:c}'}"/>
+            <!-- todo Cleanup this mess ui !-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
