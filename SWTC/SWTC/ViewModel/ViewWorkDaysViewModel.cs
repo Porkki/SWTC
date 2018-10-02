@@ -18,15 +18,30 @@ namespace SWTC.ViewModel
 
         public ViewWorkDaysViewModel(INavigation navigation)
         {
-            this.Navigation = navigation;
-            this.WorkDayRepository = new WorkDayRepository();
-            WorkDaysList = this.WorkDayRepository.GetAllWorkDays();
+            Navigation = navigation;
+            WorkDayRepository = new WorkDayRepository();
+            
 
             RemoveWorkDay = new Command(async () => await RemoveWorkDayExec());
             Search = new Command(async () => await SearchExec());
-        }
 
-        private DateTime _StartDate = DateTime.Parse("01.01.2018");
+            /*
+             * Setting StartDate either 1st day or 15th day of the month depending what day it is
+             */ 
+
+            if (DateTime.Now.Day < 16)
+            {
+                StartDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            } else
+            {
+                StartDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 16);
+            }
+
+            WorkDaysList = WorkDayRepository.GetBetweenDates(StartDate, EndDate);
+
+        }
+        private DateTime _StartDate;
+
         public DateTime StartDate
         {
             get
@@ -106,18 +121,25 @@ namespace SWTC.ViewModel
                 }
             }
         }
-
+        //TODO: Mahdollinen bugi, haku näyttää yhden päivän liianvähän emuloinnissa, kolmas päivä näyttää vain toisen päivän
         public async Task SearchExec()
         {
-            WorkDaysList = WorkDayRepository.GetBetweenDates(StartDate, EndDate);
-
-            if (WorkDaysList.Count == 0)
+            if (StartDate > EndDate)
             {
-                await Application.Current.MainPage.DisplayAlert("Info", "Annetuilla päivämäärillä ei löytynyt yhtään työpäivää!", "Ok");
+                await Application.Current.MainPage.DisplayAlert("Virhe!", "Aloituspvm ei voi olla suurempi kuin lopetuspvm!", "Ok");
             } else
             {
-                await Application.Current.MainPage.DisplayAlert("Info", "Haku valmis!", "Ok");
-                OnPropertyChanged("TotalHours");
+                WorkDaysList = WorkDayRepository.GetBetweenDates(StartDate, EndDate);
+                if (WorkDaysList.Count == 0)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Info", "Annetuilla päivämäärillä ei löytynyt yhtään työpäivää!", "Ok");
+                    OnPropertyChanged("TotalHours");
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Info", "Haku valmis!", "Ok");
+                    OnPropertyChanged("TotalHours");
+                }
             }
         }
 
@@ -127,7 +149,7 @@ namespace SWTC.ViewModel
             {
                 this.WorkDayRepository.DeleteWorkDay(SelectedItem.ID);
                 //After removing selected WorkDay we need to set the WorkDaysList again to see the changes in the database
-                WorkDaysList = WorkDayRepository.GetAllWorkDays();
+                WorkDaysList = WorkDayRepository.GetBetweenDates(StartDate, EndDate);
             } else
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "There is no workday selected!", "Ok");
