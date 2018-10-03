@@ -19,8 +19,8 @@ namespace SWTC.ViewModel
 
         public WorkTimeViewModel(INavigation navigation)
         {
-            this.Navigation = navigation;
-            this.workDayRepository = new WorkDayRepository();
+            Navigation = navigation;
+            workDayRepository = new WorkDayRepository();
 
             NewWorkDay = new WorkDay();
             AddWorkDayCommand = new Command(async () => await AddWorkDay());
@@ -34,7 +34,7 @@ namespace SWTC.ViewModel
             } else
             {
                 workDayRepository.InsertWorkDay(NewWorkDay);
-                await Navigation.PushAsync(new MainPage());
+                await Navigation.PopToRootAsync();
             }
         }
 
