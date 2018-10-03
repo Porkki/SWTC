@@ -11,11 +11,11 @@ using Xamarin.Forms.Xaml;
 namespace SWTC.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ModifyWorkDay : ContentPage
+	public partial class ViewWorkDays : ContentPage
 	{
-		public ModifyWorkDay ()
+		public ViewWorkDays()
 		{
-			InitializeComponent ();
+			InitializeComponent();
             BindingContext = new ViewWorkDaysViewModel(Navigation);
 		}
 	}

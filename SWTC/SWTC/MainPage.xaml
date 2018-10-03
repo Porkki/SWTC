@@ -22,7 +22,7 @@
 
         <Button Margin="0" Grid.Row="1" Grid.Column="1" Text="Uusi työpäivä" Command="{Binding NewWorkDay}"/>
         <Button Margin="0" Grid.Row="2" Grid.Column="1" Text="Katso/Muokkaa" Command="{Binding ViewWorkDays}"/>
-        <Button Margin="0" Grid.Row="3" Grid.Column="1" Text="Asetukset"/>
+        <Button Margin="0" Grid.Row="3" Grid.Column="1" Text="Asetukset" Command="{Binding Settings}"/>
 
         <StackLayout Grid.Row="4" Grid.Column="1">
             <Label Text="Yhteenveto ajalta 1.1.1970-tänään" FontSize="Large" FontAttributes="Bold"/>

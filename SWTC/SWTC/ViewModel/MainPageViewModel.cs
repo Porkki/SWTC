@@ -11,6 +11,7 @@ namespace SWTC.ViewModel
     {
         public ICommand NewWorkDay { get; private set; }
         public ICommand ViewWorkDays { get; private set; }
+        public ICommand Settings { get; private set; }
 
         public INavigation Navigation { get; set; }
         /// <summary>
@@ -25,7 +26,11 @@ namespace SWTC.ViewModel
             });
             ViewWorkDays = new Command(async () =>
             {
-                await Application.Current.MainPage.Navigation.PushAsync(new Views.ModifyWorkDay());
+                await Application.Current.MainPage.Navigation.PushAsync(new Views.ViewWorkDays());
+            });
+            Settings = new Command(async () =>
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new Views.ViewSettings());
             });
 
         }
