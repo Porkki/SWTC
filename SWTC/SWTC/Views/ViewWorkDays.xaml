@@ -54,7 +54,11 @@
                 </ListView.ItemTemplate>
             </ListView>
             </ScrollView>
-            <Button Text="Poista" Command="{Binding RemoveWorkDay}"/>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Poista" Command="{Binding RemoveWorkDay}"/>
+                <Button Text="Muokkaa" Command="{Binding EditWorkDay}"/>
+            </StackLayout>
+            
             <Label Text="{Binding TotalHours, StringFormat='Yhteistunnit valitulta aikaväliltä: {0:c}'}"/>
             <!-- todo Cleanup this mess ui !-->
         </StackLayout>

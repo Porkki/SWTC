@@ -15,6 +15,7 @@ namespace SWTC.ViewModel
 
         public Command RemoveWorkDay { get; private set; }
         public Command Search { get; private set; }
+        public Command EditWorkDay { get; private set; }
 
         public ViewWorkDaysViewModel(INavigation navigation)
         {
@@ -24,6 +25,7 @@ namespace SWTC.ViewModel
 
             RemoveWorkDay = new Command(async () => await RemoveWorkDayExec());
             Search = new Command(async () => await SearchExec());
+            EditWorkDay = new Command(async () => await EditWorkDayExec());
 
             /*
              * Setting StartDate either 1st day or 15th day of the month depending what day it is
@@ -152,7 +154,21 @@ namespace SWTC.ViewModel
                 WorkDaysList = WorkDayRepository.GetBetweenDates(StartDate, EndDate);
             } else
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "There is no workday selected!", "Ok");
+                await Application.Current.MainPage.DisplayAlert("Virhe", "Työpäivää ei ole valittu!", "Ok");
+            }
+            
+        }
+
+        //TODO: Työpäivän muokkaaminen toimii, mutta muokkaamisen jälkeen työpäivät pitää hakea uudelleen ennenkuin muutos näkyy...
+
+        public async Task EditWorkDayExec()
+        {
+            if (SelectedItem != null)
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new Views.EditWorkDay(SelectedItem.ID));
+            } else
+            {
+                await Application.Current.MainPage.DisplayAlert("Virhe", "Työpäivää ei ole valittu!", "Ok");
             }
             
         }

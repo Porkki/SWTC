@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SWTC.Views.EditWorkDay">
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Label Text="Päivämäärä" FontSize="20"/>
+            <DatePicker x:Name="SelectedDate"
+                        Date="{Binding SelectedDate}"/>
+            <StackLayout Orientation="Horizontal">
+                <StackLayout>
+                    <Label Text="Työpäivän alku" FontSize="15"/>
+                    <TimePicker x:Name="StartTime"
+                                Time="{Binding StartTime}"/>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Työpäivän loppu" FontSize="15"/>
+                    <TimePicker x:Name="EndTime"
+                                Time="{Binding EndTime}"/>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Tauko" FontSize="15"/>
+                    <TimePicker x:Name="Break"
+                                Time="{Binding Break}"/>
+                </StackLayout>
+            </StackLayout>
+
+            <Label Text="{Binding TotalHours, StringFormat='Työaika yhteensä: {0}'}"/>
+            <Entry Placeholder="Huom" Text="{Binding Info}"/>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Tallenna!" Command="{Binding Save}"/>
+                <Button Text="Peruuta" Command="{Binding Cancel}"/>
+            </StackLayout>
+            
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
