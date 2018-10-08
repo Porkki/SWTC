@@ -13,6 +13,7 @@ namespace SWTC.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EditWorkDay : ContentPage
     {
+        //Dirty way to pass workday id vm to vm
         public EditWorkDay(int id)
         {
             InitializeComponent();
