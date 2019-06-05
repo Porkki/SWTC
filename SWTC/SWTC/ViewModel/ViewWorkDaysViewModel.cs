@@ -150,6 +150,7 @@ namespace SWTC.ViewModel
                 this.WorkDayRepository.DeleteWorkDay(SelectedItem.ID);
                 //After removing selected WorkDay we need to set the WorkDaysList again to see the changes in the database
                 WorkDaysList = WorkDayRepository.GetBetweenDates(StartDate, EndDate);
+                OnPropertyChanged("TotalHours");
             } else
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "There is no workday selected!", "Ok");
