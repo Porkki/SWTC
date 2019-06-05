@@ -15,5 +15,12 @@ namespace SWTC
 
             BindingContext = new ViewModel.MainPageViewModel(Navigation);
         }
-	}
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            //Dirty way to update CurWeekHours after popasync from another page
+            BindingContext = new ViewModel.MainPageViewModel(Navigation);
+        }
+    }
 }

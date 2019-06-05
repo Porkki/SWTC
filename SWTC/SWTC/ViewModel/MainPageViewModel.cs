@@ -1,5 +1,8 @@
-﻿using System;
+﻿using SWTC.Model;
+using SWTC.Services;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -13,13 +16,19 @@ namespace SWTC.ViewModel
         public ICommand ViewWorkDays { get; private set; }
         public ICommand Settings { get; private set; }
 
+        public IWorkDayRepository WorkDayRepository;
+        private List<WorkDay> _WorkDayList;
+
         public INavigation Navigation { get; set; }
         /// <summary>
         /// Default Constructor
         /// </summary>
         public MainPageViewModel(INavigation navigation)
         {
-            this.Navigation = navigation;
+            Navigation = navigation;
+
+            WorkDayRepository = new WorkDayRepository();
+
             NewWorkDay = new Command(async () =>
             {
                 await Application.Current.MainPage.Navigation.PushAsync(new Views.NewWorkDay());
@@ -33,33 +42,25 @@ namespace SWTC.ViewModel
                 await Application.Current.MainPage.Navigation.PushAsync(new Views.ViewSettings());
             });
 
+
+
+            _WorkDayList = WorkDayRepository.GetCurrentWeekWorkDays(DateTime.Today);
         }
-        private string _CurWeekHours;
+
+
         public string CurWeekHours
         {
             get
             {
-                return _CurWeekHours;
-            }
-            set
-            {
-                if (value != _CurWeekHours)
+                _WorkDayList = WorkDayRepository.GetCurrentWeekWorkDays(DateTime.Today);
+                TimeSpan total = TimeSpan.Zero;
+                foreach (var WorkDay in _WorkDayList)
                 {
-                    _CurWeekHours = value;
-                    OnPropertyChanged("CurWeekHours");
+                    total += WorkDay.Total;
                 }
+                double var1 = total.TotalHours;
+                return Math.Round(var1, 2).ToString();
             }
         }
-
-        #region Command Functions
-        public void NewWorkDayExe()
-        {
-            this.CurWeekHours = "EsaPetteri 23";
-        }
-        public bool NewWorkDayIsValid()
-        {
-            return true;
-        }
-        #endregion
     }
 }

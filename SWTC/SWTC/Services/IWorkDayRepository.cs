@@ -11,6 +11,8 @@ namespace SWTC.Services
 
         List<WorkDay> GetBetweenDates(DateTime start, DateTime end);
 
+        List<WorkDay> GetCurrentWeekWorkDays(DateTime dateTime);
+
         WorkDay GetWorkDay(int id);
 
         void DeleteWorkDay(int id);

@@ -2,6 +2,7 @@
 using SWTC.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Xamarin.Forms;
@@ -33,6 +34,42 @@ namespace SWTC.Helpers
             string query = string.Format("SELECT * FROM WorkDay WHERE SelectedDate BETWEEN '{0}' AND '{1}T23:59:59.000' ORDER BY SelectedDate", sqlstart, sqlend);
 
             return sqliteconnection.Query<WorkDay>(query);
+        }
+
+        public List<WorkDay> GetCurrentWeekWorkDays(DateTime dateTime)
+        {
+            DateTime start = FirstDateOfWeek(dateTime.Year, GetWeekNumber(dateTime), CultureInfo.CurrentCulture);
+            DateTime end = FirstDateOfWeek(dateTime.Year, GetWeekNumber(dateTime), CultureInfo.CurrentCulture).AddDays(6);
+
+            string sqlstart = DateTimeSQLite(start);
+            string sqlend = DateTimeSQLite(end);
+
+            string query = string.Format("SELECT * FROM WorkDay WHERE SelectedDate BETWEEN '{0}' AND '{1}T23:59:59.000' ORDER BY SelectedDate", sqlstart, sqlend);
+
+            return sqliteconnection.Query<WorkDay>(query);
+        }
+
+        private static int GetWeekNumber(DateTime time)
+        {
+            DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(time);
+            if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday)
+            {
+                time = time.AddDays(3);
+            }
+            return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+        }
+
+        private static DateTime FirstDateOfWeek(int year, int weeknumber, CultureInfo ci)
+        {
+            DateTime jan1 = new DateTime(year, 1, 1);
+            int daysOffset = ci.DateTimeFormat.FirstDayOfWeek - jan1.DayOfWeek;
+            DateTime firstWeekDay = jan1.AddDays(daysOffset);
+            int firstWeek = ci.Calendar.GetWeekOfYear(jan1, ci.DateTimeFormat.CalendarWeekRule, ci.DateTimeFormat.FirstDayOfWeek);
+            if ((firstWeek <= 1 || firstWeek >= 52) && daysOffset >= -3)
+            {
+                weeknumber -= 1;
+            }
+            return firstWeekDay.AddDays(weeknumber * 7);
         }
 
         private string DateTimeSQLite(DateTime datetime)
