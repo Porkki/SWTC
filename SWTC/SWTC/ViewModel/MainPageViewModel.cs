@@ -18,6 +18,9 @@ namespace SWTC.ViewModel
 
         public IWorkDayRepository WorkDayRepository;
         private List<WorkDay> _WorkDayList;
+        private List<WorkDay> _CurWageHoursList;
+
+        private DateTime _StartDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
 
         public INavigation Navigation { get; set; }
         /// <summary>
@@ -42,9 +45,17 @@ namespace SWTC.ViewModel
                 await Application.Current.MainPage.Navigation.PushAsync(new Views.ViewSettings());
             });
 
-
+            if (DateTime.Now.Day < 16)
+            {
+                _StartDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            }
+            else
+            {
+                _StartDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 16);
+            }
 
             _WorkDayList = WorkDayRepository.GetCurrentWeekWorkDays(DateTime.Today);
+            _CurWageHoursList = WorkDayRepository.GetBetweenDates(_StartDate,DateTime.Now);
         }
 
 
@@ -52,9 +63,23 @@ namespace SWTC.ViewModel
         {
             get
             {
-                _WorkDayList = WorkDayRepository.GetCurrentWeekWorkDays(DateTime.Today);
+                //_WorkDayList = WorkDayRepository.GetCurrentWeekWorkDays(DateTime.Today);
                 TimeSpan total = TimeSpan.Zero;
                 foreach (var WorkDay in _WorkDayList)
+                {
+                    total += WorkDay.Total;
+                }
+                double var1 = total.TotalHours;
+                return Math.Round(var1, 2).ToString();
+            }
+        }
+
+        public string CurWageHours
+        {
+            get
+            {
+                TimeSpan total = TimeSpan.Zero;
+                foreach (var WorkDay in _CurWageHoursList)
                 {
                     total += WorkDay.Total;
                 }
